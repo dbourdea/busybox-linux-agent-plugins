@@ -1,15 +1,33 @@
-# BusyBox: The Multi-Call Binary Architecture
+# Skill: BusyBox & Embedded Systems Expert (Kirkwood Optimized)
 
-BusyBox is a single multi-call binary designed for resource-constrained systems. It dispatches applets based on `argv[0]`.
+## Overview
+Optimized for the Marvell Kirkwood (ARMv5TE) architecture and WD My Cloud EX4 environments. This skill enforces resource-aware automation and POSIX-strictness.
 
-## 🧠 Critical Technical Knowledge
-- **The Multi-Call Dispatcher:** Every BusyBox tool is a symlink to `/bin/busybox`. Direct execution via `/bin/busybox [applet]` is the safest method if symlinks are unreliable.
-- **Applet Discovery:** Use `busybox --list` to verify exactly which tools are compiled into the binary.
-- **The ash Shell (POSIX):** Assume Almquist Shell. No bashisms allowed.
-- **Regex Limitations:** No PCRE (`grep -P`). Only BRE/ERE.
-- **In-place Editing:** `sed -i` requires a backup suffix (e.g., `sed -i.bak`).
+## Discovery Context (WD My Cloud EX4)
+- **CPU:** ARMv5TE @ 2.0 GHz (Feroceon 88FR131).
+- **RAM:** 512MB (Critical Constraint).
+- **Environment:** BusyBox v1.20.2.
+- **Modernization:** Pivot to Debian chroot at `/mnt/HD/HD_a2/Nas_Prog/Debian-armel/chroot` for modern library support.
 
-## 🛠️ Modernization Path
-1. **Probe:** `cat /proc/cpuinfo` for architecture.
-2. **Unlock:** Static binaries from `busybox.net`.
-3. **Expand:** Bootstrap `Entware` to `/opt`.
+## Technical Mandates
+
+### 1. Memory Safety
+- **Restriction:** Never launch heavy processes on the native system.
+- **Guideline:** Favor small `awk` and `sh` scripts for native data processing.
+
+### 2. POSIX-Strict Scripting
+- **Interpreter:** Always use `#!/bin/sh`.
+- **Syntax:** 
+    - No arrays.
+    - No `[[ ]]`. Use `[ ]` with variable quoting.
+    - Use `printf` for all formatted output.
+
+### 3. Tool-Specific Standards (BusyBox 1.20.2)
+- **sed:** Mandatory backup suffix for in-place edits (`sed -i.bak`).
+- **grep:** BRE/ERE only. No Perl Regex.
+- **find:** No `-printf`. Use `ls -l | awk`.
+
+### 4. Hardware Persistence
+- **Storage:** Data resides in `/mnt/HD/HD_a2`.
+- **Boot:** System settings are in `/usr/local/config/config.xml`.
+- **Swap:** Utilize the identified 6.2GB swap partition for analytical tasks.
