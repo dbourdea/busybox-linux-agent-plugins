@@ -14,7 +14,7 @@ A professional-grade repository for managing, modernizing, and automating minima
 ## 🛠️ Implementation Guide
 
 ### For Humans: Installing to AI Assistants
-1. **OpenClaw:** Copy `agents/openclaw/SKILL.md` to your agent's skills path.
+1. **OpenClaw / Gemini CLI:** Copy the `SKILL.md` from the respective folder in `/agents` to your agent's skills path.
 2. **Copilot/Codex:** Add the files in `/core` and `/agents` to your prompt context or editor workspace to enforce POSIX-compliant code generation.
 
 ### Key Knowledge Pillars
